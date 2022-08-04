@@ -20,6 +20,8 @@ use std::collections::HashMap;
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 
 use log::warn;
 
@@ -165,6 +167,7 @@ use crate::rr::dnssec::SupportedAlgorithms;
 ///       Set to zero by senders and ignored by receivers, unless modified
 ///       in a subsequent specification.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Default, Debug, PartialEq, Eq, Clone)]
 pub struct OPT {
@@ -316,6 +319,7 @@ enum OptReadState {
 }
 
 /// The code of the EDNS data option
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Hash, Debug, Copy, Clone, PartialEq, Eq)]
 #[non_exhaustive]
@@ -413,6 +417,7 @@ impl From<EdnsCode> for u16 {
 /// `note: Not all EdnsOptions are supported at this time.`
 ///
 /// <http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-13>
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialOrd, PartialEq, Eq, Clone, Hash)]
 #[non_exhaustive]

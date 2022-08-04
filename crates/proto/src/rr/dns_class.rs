@@ -15,11 +15,13 @@ use std::str::FromStr;
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
-
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 use crate::error::*;
 use crate::serialize::binary::*;
 
 /// The DNS Record class
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
 #[allow(dead_code)]

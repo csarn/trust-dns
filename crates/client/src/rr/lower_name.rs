@@ -16,7 +16,8 @@ use std::str::FromStr;
 use crate::proto::error::*;
 #[cfg(feature = "serde-config")]
 use serde::{de, Deserialize, Deserializer, Serialize, Serializer};
-
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 use crate::rr::Name;
 use crate::serialize::binary::*;
 

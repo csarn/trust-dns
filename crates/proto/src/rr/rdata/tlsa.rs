@@ -8,6 +8,8 @@
 //! TLSA records for storing TLS certificate validation information
 use std::fmt;
 
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
 
@@ -35,6 +37,7 @@ use crate::serialize::binary::*;
 ///    /                                                               /
 ///    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct TLSA {
@@ -70,6 +73,7 @@ pub struct TLSA {
 ///    that accept other formats for certificates, those certificates will
 ///    need their own certificate usage values.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum CertUsage {
@@ -181,6 +185,7 @@ impl From<CertUsage> for u8 {
 ///    unrelated to the use of "selector" in DomainKeys Identified Mail
 ///    (DKIM) [RFC6376].)
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Selector {
@@ -240,6 +245,7 @@ impl From<Selector> for u8 {
 ///    certificate (if possible) will assist clients that support a small
 ///    number of hash algorithms.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Matching {

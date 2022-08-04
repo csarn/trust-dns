@@ -10,6 +10,8 @@ use std::fmt;
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 
 use data_encoding::{Encoding, Specification};
 use lazy_static::lazy_static;
@@ -55,6 +57,7 @@ lazy_static! {
 ///    The message-digest algorithm is presumed to produce an opaque octet
 ///    string output, which is placed as-is in the RDATA fingerprint field.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct SSHFP {
@@ -118,6 +121,7 @@ impl SSHFP {
 /// [RFC 6594](https://tools.ietf.org/html/rfc6594) and
 /// [RFC 7479](https://tools.ietf.org/html/rfc7479) and
 /// [RFC 8709](https://tools.ietf.org/html/rfc8709).
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Algorithm {
@@ -192,6 +196,7 @@ impl From<Algorithm> for u8 {
 ///
 /// The fingerprint type values have been updated in
 /// [RFC 6594](https://tools.ietf.org/html/rfc6594).
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum FingerprintType {

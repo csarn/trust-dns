@@ -20,6 +20,8 @@ use std::fmt;
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 
 use crate::error::*;
 use crate::rr::dnssec::Nsec3HashAlgorithm;
@@ -112,6 +114,7 @@ use crate::serialize::binary::*;
 ///  does not include the name of the containing zone.  The length of this
 ///  field is determined by the preceding Hash Length field.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct NSEC3 {

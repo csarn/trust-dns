@@ -17,6 +17,8 @@ use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 
 use enum_as_inner::EnumAsInner;
 use log::{trace, warn};
@@ -52,6 +54,7 @@ use super::dnssec::rdata::DNSSECRData;
 /// is treated as binary information, and can be up to 256 characters in
 /// length (including the length octet).
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, EnumAsInner, PartialEq, Clone, Eq)]
 #[non_exhaustive]

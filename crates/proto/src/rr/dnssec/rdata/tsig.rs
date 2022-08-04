@@ -11,6 +11,8 @@ use std::fmt;
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 
 use crate::rr::rdata::sshfp;
 
@@ -135,6 +137,7 @@ use crate::serialize::binary::*;
 ///      seconds (see Section 5.2.3).  This document assigns no meaning to
 ///      its contents in requests.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct TSIG {
@@ -175,6 +178,7 @@ pub struct TSIG {
 ///      | hmac-sha512-256          | MAY            | MAY             |
 ///      +--------------------------+----------------+-----------------+
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub enum TsigAlgorithm {

@@ -19,6 +19,8 @@ use std::fmt;
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 
 use crate::error::*;
 use crate::rr::type_bit_map::{decode_type_bit_maps, encode_type_bit_maps};
@@ -49,6 +51,7 @@ use crate::serialize::binary::*;
 ///    expansion.  [RFC4035] describes the impact of wildcards on
 ///    authenticated denial of existence.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct NSEC {

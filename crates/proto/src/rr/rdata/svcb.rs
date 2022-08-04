@@ -15,6 +15,8 @@ use std::{
     net::Ipv6Addr,
 };
 
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
 
@@ -65,6 +67,7 @@ use crate::serialize::binary::*;
 ///   If any RRs are malformed, the client MUST reject the entire RRSet and
 ///   fall back to non-SVCB connection establishment.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct SVCB {
@@ -193,6 +196,7 @@ impl SVCB {
 ///   *  a 2 octet field containing the SvcParamKey as an integer in
 ///      network byte order.  (See Section 14.3.2 for the defined values.)
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum SvcParamKey {
@@ -342,6 +346,7 @@ impl PartialOrd for SvcParamKey {
 ///   *  an octet string of this length whose contents are in a format
 ///      determined by the SvcParamKey.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone, EnumAsInner)]
 pub enum SvcParamValue {
@@ -561,6 +566,7 @@ impl fmt::Display for SvcParamValue {
 ///    SHOULD NOT appear in the list either.  (Including them wastes space
 ///    and otherwise has no effect.)
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 #[repr(transparent)]
@@ -725,6 +731,7 @@ impl fmt::Display for Mandatory {
 ///   operators SHOULD ensure that at least one RR in each RRSet supports
 ///   the default transports.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 #[repr(transparent)]
@@ -811,6 +818,7 @@ impl fmt::Display for Alpn {
 ///   apply only to the inner ClientHello.  Similarly, it is the inner
 ///   ClientHello whose Server Name Indication identifies the desired
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(PartialEq, Eq, Hash, Clone)]
 #[repr(transparent)]
@@ -924,6 +932,7 @@ impl fmt::Debug for EchConfig {
 ///   server operators SHOULD NOT include these hints, because they are
 ///   unlikely to convey any performance benefit.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 #[repr(transparent)]
@@ -997,6 +1006,7 @@ where
 ///   SvcParams in presentation format MAY appear in any order, but keys
 ///   MUST NOT be repeated.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 #[repr(transparent)]

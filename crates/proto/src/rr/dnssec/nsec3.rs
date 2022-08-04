@@ -19,6 +19,8 @@
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 
 #[cfg(any(feature = "openssl", feature = "ring"))]
 use super::{Digest, DigestType};
@@ -101,6 +103,7 @@ use crate::serialize::binary::{BinEncodable, BinEncoder};
 ///    Assignment of additional NSEC3 hash algorithms in this registry
 ///    requires IETF Standards Action [RFC2434].
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Nsec3HashAlgorithm {

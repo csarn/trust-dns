@@ -11,6 +11,8 @@ use std::fmt;
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 
 use crate::error::*;
 use crate::serialize::binary::*;
@@ -41,6 +43,7 @@ use crate::serialize::binary::*;
 /// ```
 ///
 /// [rfc1035]: https://tools.ietf.org/html/rfc1035
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct HINFO {

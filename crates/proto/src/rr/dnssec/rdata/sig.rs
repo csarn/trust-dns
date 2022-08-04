@@ -19,6 +19,8 @@ use std::fmt;
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 
 use crate::error::*;
 use crate::rr::dnssec::Algorithm;
@@ -183,6 +185,7 @@ use crate::serialize::binary::*;
 ///    networks, this time bracket should not normally extend further than 5
 ///    minutes into the past and 5 minutes into the future.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct SIG {

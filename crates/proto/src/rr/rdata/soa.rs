@@ -20,6 +20,8 @@ use std::fmt;
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 
 use crate::error::*;
 use crate::rr::domain::Name;
@@ -69,6 +71,7 @@ use crate::serialize::binary::*;
 /// reason for this provison is to allow future dynamic update facilities to
 /// change the SOA RR with known semantics.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct SOA {

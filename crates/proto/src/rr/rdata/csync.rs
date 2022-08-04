@@ -11,6 +11,8 @@ use std::fmt;
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 
 use crate::error::*;
 use crate::rr::type_bit_map::{decode_type_bit_maps, encode_type_bit_maps};
@@ -36,6 +38,7 @@ use crate::serialize::binary::*;
 /// ```
 ///
 /// [rfc7477]: https://tools.ietf.org/html/rfc7477
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct CSYNC {

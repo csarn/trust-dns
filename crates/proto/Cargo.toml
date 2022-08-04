@@ -54,6 +54,7 @@ tokio-runtime = ["tokio/net", "tokio/rt", "tokio/time", "tokio/rt-multi-thread"]
 default = ["tokio-runtime"]
 
 serde-config = ["serde", "url/serde"]
+jsonschema = ["schemars"]
 
 # enables experimental the mDNS (multicast) feature
 mdns = ["socket2/all"]
@@ -90,6 +91,7 @@ rand = "0.8"
 ring = { version = "0.16", optional = true, features = ["std"] }
 rustls = { version = "0.20.0", optional = true }
 rustls-pemfile = { version = "0.3.0", optional = true }
+schemars = { version = "*", features = ["url"], optional = true }
 serde = { version = "1.0", features = ["derive"], optional = true }
 smallvec = "1.6"
 socket2 = { version = "0.4.0", optional = true }

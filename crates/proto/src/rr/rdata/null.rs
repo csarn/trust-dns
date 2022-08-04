@@ -19,6 +19,8 @@ use std::fmt;
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 
 use crate::error::*;
 use crate::serialize::binary::*;
@@ -40,6 +42,7 @@ use crate::serialize::binary::*;
 /// allowed in Zone Files.  NULLs are used as placeholders in some
 /// experimental extensions of the DNS.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Default, Debug, PartialEq, Eq, Hash, Clone)]
 pub struct NULL {

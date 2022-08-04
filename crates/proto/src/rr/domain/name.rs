@@ -19,8 +19,11 @@ use crate::rr::domain::label::{CaseInsensitive, CaseSensitive, IntoLabel, Label,
 use crate::rr::domain::usage::LOCALHOST as LOCALHOST_usage;
 use crate::serialize::binary::*;
 use ipnet::{IpNet, Ipv4Net, Ipv6Net};
+use schemars::schema::InstanceType;
 #[cfg(feature = "serde-config")]
 use serde::{de, Deserialize, Deserializer, Serialize, Serializer};
+#[cfg(feature = "jsonschema")]
+use schemars::{JsonSchema, schema::SchemaObject};
 use tinyvec::TinyVec;
 
 /// A domain name
@@ -31,6 +34,20 @@ pub struct Name {
     // This 24 is chosen because TinyVec accomodates an inline buffer up to 24 bytes without
     // increasing its stack footprint
     label_ends: TinyVec<[u8; 24]>,
+}
+
+#[cfg(feature = "jsonschema")]
+impl JsonSchema for Name {
+    fn schema_name() -> String {
+        "Name".into()
+    }
+
+    fn json_schema(gen: &mut schemars::gen::SchemaGenerator) -> schemars::schema::Schema {
+        SchemaObject {
+            instance_type: Some(InstanceType::String.into()),
+            ..Default::default()
+        }.into()
+    }
 }
 
 impl Name {

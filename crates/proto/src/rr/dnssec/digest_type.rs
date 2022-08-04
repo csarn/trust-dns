@@ -21,6 +21,8 @@ use ring::digest;
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 
 use crate::error::*;
 use crate::rr::dnssec::Algorithm;
@@ -39,6 +41,7 @@ use super::Digest;
 /// 5 ED25519 [RFC draft-ietf-curdle-dnskey-eddsa-03]
 /// 5-255 Unassigned -
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord, Debug)]
 #[non_exhaustive]

@@ -19,6 +19,8 @@ use std::fmt;
 
 #[cfg(feature = "serde-config")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "jsonschema")]
+use schemars::JsonSchema;
 
 use crate::error::*;
 use crate::rr::dnssec::Algorithm;
@@ -162,6 +164,7 @@ use crate::serialize::binary::*;
 ///               6 and 7 above) always have authority to sign any RRs in
 ///               the zone regardless of the value of the signatory field.
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct KEY {
@@ -174,6 +177,7 @@ pub struct KEY {
 }
 
 /// Specifies in what contexts this key may be trusted for use
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum KeyTrust {
@@ -247,6 +251,7 @@ fn test_key_trust() {
 
 /// Declares what this key is for
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 pub enum KeyUsage {
     /// key associated with a "user" or "account" at an end entity, usually a host
@@ -407,6 +412,7 @@ fn test_key_usage() {
 ///
 /// ```
 #[deprecated = "Deprecated by RFC3007"]
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, Default, PartialEq, Eq, Hash, Clone, Copy)]
 pub struct UpdateScope {
@@ -564,6 +570,7 @@ fn test_update_scope() {
 /// ```text
 /// All Protocol Octet values except DNSSEC (3) are eliminated
 /// ```
+#[cfg_attr(feature = "jsonschema", derive(JsonSchema))]
 #[cfg_attr(feature = "serde-config", derive(Deserialize, Serialize))]
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Protocol {
